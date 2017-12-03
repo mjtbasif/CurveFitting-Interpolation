@@ -10,15 +10,15 @@ This is CSE225:Numerical Methods course project. The project is divided into two
     
 # Sample inputs for Linear Curve Fitting 
 
-  N = 5
-  X = 1 2 3 4 5
-  Y = 3 4 5 6 8
+  N = 5 <br>
+  X = 1 2 3 4 5 <br>
+  Y = 3 4 5 6 8 <br>
   
  # Sample inputs for Gausee Backward Interpolation
  
-  N = 6
-  X = 2 6 10 14 18 22
-  17
+  N = 6 <br>
+  X = 2 6 10 14 18 22 <br>
+  17 <br>
   
 # Downloads
 Download executable file <a><a href="https://github.com/mjtbasif/CurveFitting-Interpolation/tree/master/numeric/bin/Debug/numeric.exe">here</a></b>
