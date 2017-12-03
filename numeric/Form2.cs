@@ -32,15 +32,17 @@ namespace numeric
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             Form1 f1 = new Form1();
-            f1.Show();
             this.Hide();
+            f1.Location = this.Location;
+            f1.Show();
         }
 
-        private void label5_Click(object sender, EventArgs e) // calcuate curve fitting eqn
+        private void eqnCurve(object sender, EventArgs e) // calcuate curve fitting eqn
         {
             double sX, sY, sXY, sXX, temp;
             string xValues = textBox2.Text + " ";
             string yValues = textBox3.Text + " ";
+            if (xValues == " " || yValues == " " || textBox1.Text == "") return;
             int N = int.Parse(textBox1.Text, System.Globalization.CultureInfo.InvariantCulture);
             sX = sY = sXY = sXX = 0;
             double[] X = new double[N + 10];
@@ -104,12 +106,85 @@ namespace numeric
                 res *= i;
             return res;
         }
-        private void label7_Click(object sender, EventArgs e) // calculate interpolation
+
+        private void pictureBox3_Click(object sender, EventArgs e)
         {
+            Form2 f2 = new Form2();
+            this.Hide();
+            f2.Location = this.Location;
+            f2.Show();
+        }
+
+        private void label5_MouseHover(object sender, EventArgs e)
+        {
+            linearCurve.ForeColor = Color.GreenYellow;
+        }
+
+        private void label5_MouseLeave(object sender, EventArgs e)
+        {
+            linearCurve.ForeColor = Color.Turquoise;
+        }
+
+        private void label7_MouseHover(object sender, EventArgs e)
+        {
+            calculateInterpolation.ForeColor = Color.GreenYellow;
+        }
+
+        private void label7_MouseLeave(object sender, EventArgs e)
+        {
+            calculateInterpolation.ForeColor = Color.Turquoise;
+        }
+
+        private void pictureBox2_MouseHover(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Properties.Resources.user_1_;
+        }
+
+        private void pictureBox2_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Properties.Resources.user;
+        }
+
+        private void pictureBox3_MouseHover(object sender, EventArgs e)
+        {
+            pictureBox3.Image = Properties.Resources.bar_chart_1_;
+        }
+
+        private void pictureBox3_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox3.Image = Properties.Resources.bar_chart;
+        }
+        int mouseX = 0, mouseY = 0;
+        bool mouseDown;
+
+        private void label1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseDown)
+            {
+                this.SetDesktopLocation(MousePosition.X- mouseX, MousePosition.Y- mouseY);
+            }
+        }
+
+        private void label1_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDown = false;
+        }
+
+        private void label1_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseDown = true;
+            mouseX = e.X;
+            mouseY=e.Y;
+        }
+
+        private void gaussBackward(object sender, EventArgs e) // calculate interpolation
+        {
+            if (textBox6.Text== "" || textBox4.Text == "" || textBox5.Text == "") return;
             double temp;
             string xValues = textBox5.Text + " ";
             int N = int.Parse(textBox4.Text, System.Globalization.CultureInfo.InvariantCulture);
-            int x = int.Parse(textBox6.Text, System.Globalization.CultureInfo.InvariantCulture);
+            double x = double.Parse(textBox6.Text, System.Globalization.CultureInfo.InvariantCulture);
+            
             double[] X = new double[N + 10];
             double[] Y = new double[N + 10];
             int index = 0, f = 1, unit = 1;
@@ -158,7 +233,7 @@ namespace numeric
                 sizeIN[IN++] = n;
             }
             // interpolation
-            if ((x >= X[0] && x <= X[1]) || (x>=X[N-2] && x<=X[N-1]))
+            if ((x >= X[0] && x <= X[1]) || (x>=X[N-2]))
             {
                 interRes.Text = "Impossible to use Gausse Backward Interpolation";
                 return;
@@ -193,8 +268,10 @@ namespace numeric
                                 c++;
                             }
                         }
-                        if (sizeIN[c] ==index) { val = 0; f = 1; }
-                        else val = y[c,index];
+                        if (sizeIN[c] < index) { val = 0; f = 1; }
+                        else if (x > X[1] && x < X[2]) val = 0;
+                        else val = y[c, index];
+
                         res += (temp / fact(j + 1)) * (val);
                         if (f == 1) break;
                     }
