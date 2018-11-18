@@ -21,8 +21,8 @@ This is CSE225:Numerical Methods course project. The project is divided into two
   17 <br>
   
   # Screen Shots
-  ![intro](/MISC/CSE225_1.jpg)
-  ![calculation](/MISC/CSE225_2.jpg)
+  ![intro](/MISC/CSE225_1.png)
+  ![calculation](/MISC/CSE225_2.png)
   
 # Downloads
 Download executable file <a><a href="https://github.com/mjtbasif/CurveFitting-Interpolation/tree/master/numeric/bin/Debug/numeric.exe">here</a></b>
